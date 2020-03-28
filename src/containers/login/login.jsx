@@ -9,6 +9,7 @@ import {
 }from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 
 import {login} from '../../redux/action'
@@ -56,6 +57,12 @@ class Login extends Component{
         )
     }
 }
+Login.propTypes = {
+    login:PropTypes.func,
+    user:PropTypes.object,
+    history:PropTypes.any
+}
+
 export default connect(
     state=>({user:state.user}),
     {login}

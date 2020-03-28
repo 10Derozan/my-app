@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import UserList from '../../components/user-list/user-list'
 import {getUserList} from '../../redux/action'
-
+import PropTypes from 'prop-types'
 
 class Seeker extends Component{
     componentDidMount(){
@@ -13,6 +13,10 @@ class Seeker extends Component{
             <UserList userList={this.props.userList}></UserList>
         )
     }
+}
+Seeker.propTypes ={
+    getUserList:PropTypes.func,
+    userList:PropTypes.any
 }
 
 export default connect(

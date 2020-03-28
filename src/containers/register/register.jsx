@@ -8,6 +8,7 @@ import {
     Radio,
     Button
 }from 'antd-mobile'
+import PropTypes from 'prop-types'
 import{connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
@@ -68,6 +69,11 @@ class Register extends Component{
             </div>
         )
     }
+}
+Register.propTypes = {
+    register:PropTypes.func,
+    user:PropTypes.object,
+    history:PropTypes.any
 }
 
 export default connect(

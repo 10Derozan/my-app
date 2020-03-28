@@ -1,5 +1,5 @@
 //actionCreator(异步和同步)
-import {reqLogin,reqRegister,reqUpdateUser,reqUser,reqUserList,reqChatMsgList,reqReadMsg} from '../api'
+import {reqLogin,reqRegister,reqUpdateUser,reqUser,reqUserList,reqChatMsgList} from '../api'
 import io from 'socket.io-client'
 import{
     AUTH_SUCCESS,
@@ -46,7 +46,7 @@ async function getMsgList(dispatch,userID){
 export const register = (user)=>{
     const {username,password,password2,userType}=user
     //前台表单验证，如果不通过返回一个error_msg的同步action
-    if(password!=password2){
+    if(password!==password2){
         return error_msg('两次密码不一致')
     }
     if(!username){
@@ -89,7 +89,7 @@ export const updateUser = (user)=>{
     return async (dispatch)=>{
         const res = await reqUpdateUser(user)
         const result = res.data
-        if(result.code==0){
+        if(result.code===0){
             dispatch(receive_user(result.data))
         }else{
             dispatch(reset_user(result.msg))
@@ -101,7 +101,7 @@ export const getUser = (user)=>{
     return async (dispatch)=>{
         const res = await reqUser(user)
         const result = res.data
-        if(result.code==0){
+        if(result.code===0){
             getMsgList(dispatch,result.data._id)
             dispatch(receive_user(result.data))
         }else{
@@ -114,7 +114,7 @@ export const  getUserList = (userType)=>{
     return async (dispatch)=>{
         const res = await reqUserList(userType)
         const result = res.data
-        if(result.code==0){
+        if(result.code===0){
             dispatch(receive_user_list(result.data))
         }
     }

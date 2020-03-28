@@ -3,6 +3,7 @@ import {Switch,Route,Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import Cookies from 'js-cookie'
 import {NavBar} from 'antd-mobile'
+import PropTypes from 'prop-types'
 
 import BossInfo from '../boss-info/boss-info'
 import SeekerInfo  from '../seeker-info/seeker-info'
@@ -13,6 +14,7 @@ import Personal from '../personal/personal'
 import NotFound from '../../components/not-found/not-found'
 import NavFooter from '../../components/nav-footer/nav-footer'
 import Chat from '../chat/chat'
+import '../../assets/index.scss'
 
 import {getRedirectTo} from '../../utils'
 import {getUser} from '../../redux/action'
@@ -95,6 +97,13 @@ class Main extends Component{
             </div>
         )
     }
+}
+Main.propTypes = {
+    getUser:PropTypes.func,
+    location:PropTypes.any,
+    userType:PropTypes.string,
+    user:PropTypes.object,
+    userID:PropTypes.string
 }
 
 export default connect(

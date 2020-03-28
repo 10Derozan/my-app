@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
-import {InputItem, NavBar, List} from 'antd-mobile'
+import PropTypes from 'prop-types'
+import {InputItem, NavBar, List,Icon} from 'antd-mobile'
 import {sendMsg} from '../../redux/action'
-
-import '../../assets/index.scss'
 import {reqChatMsgList} from '../../api/index'
+import '../../assets/index.scss'
 
 const Item = List.Item
 class Chat extends Component{
@@ -13,6 +13,10 @@ class Chat extends Component{
     }
     componentDidMount(){
         reqChatMsgList()
+        window.scrollTo(0,document.body.scrollHeight)
+    }
+    componentDidUpdate(){
+        window.scrollTo(0,document.body.scrollHeight)
     }
     handleSend=()=>{
         const from = this.props.user._id
@@ -34,14 +38,23 @@ class Chat extends Component{
         const targetHeader = users[targetID].header
         const targetIcon = require(`../../assets/images/${targetHeader}.jpg`)
         return(
-            <div id='chat-page'>
-                <NavBar>{users[targetID].username}</NavBar>
-                <List>
+            <div >
+                <NavBar icon={<Icon type='left' ></Icon>} 
+                className='sticky-header'
+                onLeftClick={()=>this.props.history.goBack()} 
+                >
+                {users[targetID].username}
+                </NavBar>
+                <List style={{marginBottom:50,marginTop:50}}>
                     {msgs.map(msg=>{
                         if(myID===msg.to){
-                            return<Item key={msg._id}  thumb={targetIcon}>{msg.content}</Item>
+                            return<Item key={msg._id} 
+                            thumb={targetIcon}>{msg.content}
+                            </Item>
                         }else{
-                            return<Item key={msg._id} extra={'我'} className='chat-me'>{msg.content}</Item>
+                            return<Item key={msg._id} extra={'我'}
+                             className='chat-me'>{msg.content}
+                             </Item>
                         }
                     })}
                 </List>
@@ -55,6 +68,13 @@ class Chat extends Component{
             </div>
         )
     }
+}
+Chat.propTypes = {
+    user:PropTypes.object,
+    history:PropTypes.any,
+    match:PropTypes.any,
+    sendMsg:PropTypes.func,
+    chat:PropTypes.object
 }
 
 

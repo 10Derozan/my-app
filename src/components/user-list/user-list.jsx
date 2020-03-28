@@ -10,7 +10,8 @@ const Body = Card.Body
 
 class UserList extends Component{
     static propTypes = {
-        userList:PropTypes.array.isRequired
+        userList:PropTypes.array.isRequired,
+        history:PropTypes.any
     }
     render(){
         const {userList} = this.props

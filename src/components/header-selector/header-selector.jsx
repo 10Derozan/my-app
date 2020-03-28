@@ -32,7 +32,7 @@ export default class HeadSelector extends Component{
         const listHeader  = !this.state.icon? '请选择头像' :(
             <div>
                 <p>已选择头像</p>
-                <img src={this.state.icon} className='header_img'></img>
+                <img src={this.state.icon} className='header_img' alt='头像'></img>
             </div>
         )
         return(

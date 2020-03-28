@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
 import {Result,List,WhiteSpace,Button,Modal} from 'antd-mobile'
 import Cookies from 'js-cookie'
 import {reset_user} from '../../redux/action'
@@ -41,6 +42,10 @@ class Personal extends Component{
             </div>
         )
     }
+}
+Personal.propTypes = {
+    reset_user:PropTypes.func,
+    user:PropTypes.object
 }
 
 export default connect(

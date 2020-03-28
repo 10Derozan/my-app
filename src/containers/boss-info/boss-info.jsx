@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import{connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {NavBar,InputItem,TextareaItem,Button} from 'antd-mobile'
+import PropTypes from 'prop-types'
 
 import HeadSelector from'../../components/header-selector/header-selector'
 import {updateUser} from '../../redux/action'
@@ -48,6 +49,12 @@ class BossInfo extends Component {
             </div>
         )
     }
+}
+BossInfo.propTypes ={
+    updateUser:PropTypes.func,
+    header:PropTypes.string,
+    userType:PropTypes.string,
+    user:PropTypes.object
 }
 
 
