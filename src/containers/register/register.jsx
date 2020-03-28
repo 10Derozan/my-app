@@ -35,7 +35,9 @@ class Register extends Component{
        this.props.register(this.state)
     }
     render(){
-        const {msg,redirectTo} = this.props.user
+        //const {msg,redirectTo} = this.props.user
+        const {user} = this.props
+        const msg = user.get('msg'),redirectTo = user.get('redirectTo')
         if(redirectTo){
             return<Redirect to={redirectTo}></Redirect>
         }
@@ -77,6 +79,6 @@ Register.propTypes = {
 }
 
 export default connect(
-    state=>({user:state.user}),
+    state=>({user:state.get('user')}),
     {register}
 )(Register)

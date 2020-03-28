@@ -21,6 +21,6 @@ Boss.propTypes = {
 }
 
 export default connect(
-    state=>({userList:state.userList}),
+    state=>({userList:state.get('userList')}),
     {getUserList}
 )(Boss)

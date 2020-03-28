@@ -28,32 +28,33 @@ class Chat extends Component{
         }
     }
     render(){
-        const {user} =this.props
-        const {users,chatMsgs} = this.props.chat
-        const myID = user._id
-        if(!users[myID])return null
+        const {user,chat} =this.props
+        const users = chat.get('users'),chatMsgs = chat.get('chatMsgs')
+        //const {users,chatMsgs} = this.props.chat
+        const myID = user.get('_id')
+        if(!users.get(myID))return null
         const targetID = this.props.match.params.userID
         const chatID = [myID,targetID].sort().join('_')
-        const msgs = chatMsgs.filter(msg=>msg.chat_id===chatID)
-        const targetHeader = users[targetID].header
+        const msgs = chatMsgs.filter(msg=>msg.get('chat_id')===chatID)
+        const targetHeader = users.get(targetID).get('header')
         const targetIcon = require(`../../assets/images/${targetHeader}.jpg`)
         return(
-            <div >
+            <>
                 <NavBar icon={<Icon type='left' ></Icon>} 
                 className='sticky-header'
                 onLeftClick={()=>this.props.history.goBack()} 
                 >
-                {users[targetID].username}
+                {users.get(targetID).get('username')}
                 </NavBar>
                 <List style={{marginBottom:50,marginTop:50}}>
                     {msgs.map(msg=>{
-                        if(myID===msg.to){
-                            return<Item key={msg._id} 
-                            thumb={targetIcon}>{msg.content}
+                        if(myID===msg.get('to')){
+                            return<Item key={msg.get('_id')} 
+                            thumb={targetIcon}>{msg.get('content')}
                             </Item>
                         }else{
-                            return<Item key={msg._id} extra={'我'}
-                             className='chat-me'>{msg.content}
+                            return<Item key={msg.get('_id')} extra={'我'}
+                             className='chat-me'>{msg.get('content')}
                              </Item>
                         }
                     })}
@@ -65,7 +66,7 @@ class Chat extends Component{
                     extra={<span onClick={this.handleSend}>发送</span>}>
                     </InputItem>
                 </div>
-            </div>
+            </>
         )
     }
 }
@@ -79,6 +80,6 @@ Chat.propTypes = {
 
 
 export default connect(
-    state=>({user:state.user,chat:state.chat}),
+    state=>({user:state.get('user'),chat:state.get('chat')}),
     {sendMsg}
 )(Chat)

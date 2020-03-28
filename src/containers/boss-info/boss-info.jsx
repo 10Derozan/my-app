@@ -32,7 +32,8 @@ class BossInfo extends Component {
         this.props.updateUser(this.state)
     }
     render(){
-        const{header,userType}=this.props.user
+        const header =this.props.user.get('header')
+        const userType = this.props.user.get('userType')
         if(header){
             const path = userType==='boss'?'/boss':'/seeker'
             return <Redirect to={path}></Redirect>
@@ -59,6 +60,6 @@ BossInfo.propTypes ={
 
 
 export default connect(
-    state=>({user:state.user}),
+    state=>({user:state.get('user')}),
     {updateUser}
 )(BossInfo)

@@ -54,7 +54,7 @@ class Main extends Component{
     componentDidMount(){
         //Cookie中有userID，但redux状态中没有_id
         const userID = Cookies.get('userID')
-        const {_id} = this.props.user
+        const _id = this.props.user.get('_id')
         if(userID && !_id){
             this.props.getUser()
         }
@@ -66,12 +66,12 @@ class Main extends Component{
             return<Redirect to='/login'></Redirect>
         }
         const {user} = this.props
-        if(!user._id){
+        if(!user.get('_id')){
             return null
         }else{
             let path = this.props.location.pathname
             if(path==='/'){
-                path = getRedirectTo(user.header,user.userType)
+                path = getRedirectTo(user.get('header'),user.get('userType'))
                 return <Redirect to={path} />
             }
         }
@@ -79,7 +79,7 @@ class Main extends Component{
         const path = this.props.location.pathname
         const currentNav = navList.find(nav=>nav.path===path)
         if(currentNav){
-            if(user.userType==='boss'){
+            if(user.get('userType')==='boss'){
                 navList[1].hide = true
             }else navList[0].hide = true
         }
@@ -107,7 +107,7 @@ Main.propTypes = {
 }
 
 export default connect(
-    state=>({user:state.user}),
+    state=>({user:state.get('user')}),
     {getUser}
 )(Main)
 

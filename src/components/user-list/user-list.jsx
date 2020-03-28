@@ -10,11 +10,11 @@ const Body = Card.Body
 
 class UserList extends Component{
     static propTypes = {
-        userList:PropTypes.array.isRequired,
+        userList:PropTypes.object.isRequired,
         history:PropTypes.any
     }
     render(){
-        const {userList} = this.props
+        const userList = this.props.userList.toJS()
         return(
             <WingBlank style={{marginBottom:50,marginTop:50}}>
                 {

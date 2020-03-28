@@ -22,7 +22,14 @@ class Personal extends Component{
         ])
     }
     render(){
-        const {username,header,company,post,salary,info} = this.props.user
+        //const {username,header,company,post,salary,info} = this.props.user
+        const {user} = this.props
+        const username = user.get('username')
+        const header = user.get('header')
+        const company = user.get('company')
+        const post = user.get('post')
+        const salary = user.get('salary')
+        const info = user.get('info')
         return(
             <div>
                 <Result img={<img src={require(`../../assets/images/${header}.jpg`)} style={{width:50}} alt="header"/>}
@@ -49,6 +56,6 @@ Personal.propTypes = {
 }
 
 export default connect(
-    state => ({user:state.user}),
+    state => ({user:state.get('user')}),
     {reset_user}
 )(Personal)

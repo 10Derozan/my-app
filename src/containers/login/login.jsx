@@ -11,7 +11,6 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-
 import {login} from '../../redux/action'
 import Logo from '../../components/logo/logo'
 
@@ -32,7 +31,9 @@ class Login extends Component{
         this.props.login(this.state)
     }
     render(){
-        const {msg,redirectTo} = this.props.user
+        //const {msg,redirectTo} = this.props.user
+        const redirectTo = this.props.user.get('redirectTo')
+        const msg = this.props.user.get('msg')
         if(redirectTo){
             return <Redirect to={redirectTo}/>
         }
@@ -64,6 +65,6 @@ Login.propTypes = {
 }
 
 export default connect(
-    state=>({user:state.user}),
+    state=>({user:state.get('user')}),
     {login}
 )(Login)

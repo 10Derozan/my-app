@@ -32,7 +32,9 @@ class SeekerInfo extends Component {
         this.props.updateUser(this.state)
     }
     render(){
-        const{header,userType}=this.props.user
+        //const{header,userType}=this.props.user
+        const {user} = this.props
+        const header = user.get('header'),userType = user.get('userType')
         if(header){
             const path = userType==='boss'?'/boss':'/seeker'
             return <Redirect to={path}></Redirect>
@@ -55,6 +57,6 @@ SeekerInfo.propTypes = {
 }
 
 export default connect(
-    state=>({user:state.user}),
+    state=>({user:state.get('user')}),
     {updateUser}
 )(SeekerInfo)
