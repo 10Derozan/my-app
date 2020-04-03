@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {WhiteSpace,WingBlank,Card} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
-
+import LazyLoad from 'react-lazyload'
 const Header = Card.Header
 const Body = Card.Body
 
@@ -20,6 +20,7 @@ class UserList extends Component{
                 {
                     userList.map(user=>(
                         user.header?
+                        <LazyLoad>
                         <div key={user._id}>
                             <WhiteSpace/>
                             <Card onClick={()=>this.props.history.push(`/chat/${user._id}`)}>
@@ -33,6 +34,7 @@ class UserList extends Component{
                                 </Body>
                             </Card>
                         </div>
+                        </LazyLoad>
                         :null
                     ))
                 }
